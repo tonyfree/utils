@@ -1,2 +1,2 @@
 # utils
-Util Class for JavaScript commonly used in work
+Utils Class for JavaScript commonly used in work
