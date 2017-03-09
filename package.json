@@ -1,6 +1,6 @@
 {
   "name": "qc-utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Utils Class for JavaScript commonly used in work",
   "main": "utils.js",
   "scripts": {
