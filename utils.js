@@ -45,6 +45,8 @@ class Utils {
     })
     return key ? data[key] : data
   }
+  
+  static hello() {}
 }
 
 export default Utils
