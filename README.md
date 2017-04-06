@@ -6,7 +6,7 @@ Utils Class for JavaScript commonly used in work
 $ npm install --save qc-utils
 ```
 
-## Util List
+## Utils List
 + imgUtil.js 图片压缩与上传
 + flexible.js 移动端适配
 + utils.js 
