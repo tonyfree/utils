@@ -62,6 +62,7 @@ let imgUtil = {
    * @return {Blob} Blob实例
    */
   b64toBlob(result_image_obj, contentType = 'image/jpeg', sliceSize = 512) {
+
     // 从图片元素获取src的base64数据
     let data = result_image_obj.src
     let b64Data = data.replace('data:' + contentType + ';base64,', '')
@@ -87,23 +88,32 @@ let imgUtil = {
     return blob
   },
 
-  upload(file, compress = true) {
+  upload(files,url, compress = true) {
     return new Promise((resolve, reject) => {
       let formData = new FormData()
+      let newFiles = []
       if (compress) {
-        this.compress(file).then(res => {
-          this.uploadAction(this.b64toBlob(res), resolve, reject)
+        Array.from(files).forEach((file) => {
+          this.compress(file).then(res => {
+            // 压缩完成:this.b64toBlob(res)
+            newFiles.push(this.b64toBlob(res))
+            if(newFiles.length == files.length){
+              this.uploadAction(newFiles, resolve, reject,url)
+            }
+          })
         })
       } else {
-        this.uploadAction(file, resolve, reject)
+        this.uploadAction(Array.from(files), resolve, reject,url)
       }
     })
   },
 
-  uploadAction(file, resolve, reject) {
+  uploadAction(files, resolve, reject,url) {
     let formData = new FormData()
-    formData.append("userfile", file)
-    fetch('/file/addFile.do', formData).then(res => {
+    files.forEach((file,index)=>{
+      formData.append("userfile"+index, file)
+    })
+    fetch(url, formData).then(res => {
       resolve(res)
     }, res => {
       reject(res)
